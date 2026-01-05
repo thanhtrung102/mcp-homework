@@ -160,14 +160,16 @@ This can now be used in AI assistants to search FastMCP documentation!
 
 ```
 mcp-homework/
-├── main.py           # MCP server with all tools
-├── test.py           # Test scraping tool
-├── search.py         # Standalone search implementation
-├── ANSWERS.md        # This file with all answers
-├── README.md         # Project README
-├── pyproject.toml    # Project configuration
-├── uv.lock           # Dependency lock file
-└── fastmcp-main.zip  # Downloaded documentation (auto-downloaded)
+├── main.py           # MCP server with all tools (scrape_web, search_docs, add)
+├── search.py         # Standalone search implementation (Question 5)
+├── test.py           # Web scraping test (Question 3)
+├── verify_all.py     # Complete answer verification script
+├── ANSWERS.md        # This file - homework answers with explanations
+├── README.md         # Project documentation and usage guide
+├── pyproject.toml    # uv project configuration
+├── uv.lock           # Dependency lock file (contains Q1 answer)
+├── .gitignore        # Git ignore patterns
+└── fastmcp-main.zip  # FastMCP docs (auto-downloaded, gitignored)
 ```
 
 ## Running the MCP Server
@@ -186,13 +188,29 @@ uv --directory D:\mcp-homework run python main.py
 2. **scrape_web** - Scrape any webpage using Jina Reader
 3. **search_docs** - Search FastMCP documentation
 
-## Testing
+## Verification & Testing
+
+### Verify All Answers
+Run the comprehensive verification script to check all homework answers:
 
 ```bash
-# Test web scraping
+python -m uv run python verify_all.py
+```
+
+This script verifies:
+- Q1: Hash extraction from uv.lock
+- Q2: Transport type confirmation
+- Q3: Character count from web scraping
+- Q4: 'data' count on datatalks.club
+- Q5: Search results confirmation
+
+### Test Individual Components
+
+```bash
+# Test web scraping (Question 3)
 python -m uv run python test.py
 
-# Test search functionality
+# Test search functionality (Question 5)
 python -m uv run python search.py
 ```
 

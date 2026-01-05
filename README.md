@@ -74,14 +74,22 @@ Simple demo tool to add two numbers.
 Example: "Add 5 and 7 using the add tool"
 ```
 
-## Testing
+## Testing & Verification
 
-### Test Web Scraping
+### Verify All Answers
+```bash
+# Run comprehensive verification of all homework answers
+python -m uv run python verify_all.py
+```
+
+### Test Individual Components
+
+#### Web Scraping (Question 3)
 ```bash
 python -m uv run python test.py
 ```
 
-### Test Search Functionality
+#### Search Functionality (Question 5)
 ```bash
 python -m uv run python search.py
 ```
@@ -90,14 +98,16 @@ python -m uv run python search.py
 
 ```
 mcp-homework/
-├── main.py              # MCP server with all tools
-├── test.py              # Web scraping test
-├── search.py            # Search functionality test
-├── ANSWERS.md           # Homework answers
-├── README.md            # This file
-├── pyproject.toml       # Project configuration
+├── main.py              # MCP server with all tools (scrape_web, search_docs, add)
+├── search.py            # Standalone search implementation and testing
+├── test.py              # Web scraping tool test (Question 3)
+├── verify_all.py        # Complete answer verification script
+├── ANSWERS.md           # Complete homework solutions with explanations
+├── README.md            # This file - project documentation
+├── pyproject.toml       # uv project configuration
 ├── uv.lock              # Dependency lock file
-└── fastmcp-main.zip     # Documentation archive (auto-downloaded)
+├── .gitignore           # Git ignore patterns
+└── fastmcp-main.zip     # FastMCP docs (auto-downloaded on first search)
 ```
 
 ## Dependencies
