@@ -161,9 +161,7 @@ This can now be used in AI assistants to search FastMCP documentation!
 ```
 mcp-homework/
 ├── main.py           # MCP server with all tools (scrape_web, search_docs, add)
-├── search.py         # Standalone search implementation (Question 5)
-├── test.py           # Web scraping test (Question 3)
-├── verify_all.py     # Complete answer verification script
+├── verify_all.py     # One-command verification of all homework answers
 ├── ANSWERS.md        # This file - homework answers with explanations
 ├── README.md         # Project documentation and usage guide
 ├── pyproject.toml    # uv project configuration
@@ -190,28 +188,47 @@ uv --directory D:\mcp-homework run python main.py
 
 ## Verification & Testing
 
-### Verify All Answers
-Run the comprehensive verification script to check all homework answers:
+Run the comprehensive verification script to test all homework answers in one command:
 
 ```bash
 python -m uv run python verify_all.py
 ```
 
-This script verifies:
-- Q1: Hash extraction from uv.lock
-- Q2: Transport type confirmation
-- Q3: Character count from web scraping
-- Q4: 'data' count on datatalks.club
-- Q5: Search results confirmation
+This script automatically verifies all 5 questions:
+- ✓ **Q1**: Extracts and verifies fastmcp hash from uv.lock
+- ✓ **Q2**: Confirms STDIO transport type
+- ✓ **Q3**: Tests web scraping and validates character count (31,361 → closest: 29,184)
+- ✓ **Q4**: Scrapes datatalks.club and counts 'data' occurrences (61)
+- ✓ **Q5**: Downloads FastMCP docs, indexes with minsearch, searches for 'demo', and verifies first result
 
-### Test Individual Components
+**Example output:**
+```
+================================================================================
+MCP HOMEWORK ANSWER VERIFICATION
+================================================================================
 
-```bash
-# Test web scraping (Question 3)
-python -m uv run python test.py
+[Q1] Checking fastmcp hash in uv.lock...
+✓ First hash found: sha256:e33cd622e1ebd5110af6a981804525b6cd41072e3c7d68268ed69ef3be651aca
+  ✓ CORRECT!
 
-# Test search functionality (Question 5)
-python -m uv run python search.py
+[Q2] Transport type: STDIO
+  ✓ Answer: STDIO
+
+[Q3] Testing web scraping for character count...
+  Actual character count: 31361
+  ✓ Closest match: 29184
+
+[Q4] Counting 'data' occurrences on datatalks.club...
+  Actual count: 61
+  ✓ Answer: 61 (exact match: True)
+
+[Q5] Searching for 'demo'...
+  First result: examples/testing_demo/README.md
+  ✓ CORRECT!
+
+================================================================================
+VERIFICATION COMPLETE
+================================================================================
 ```
 
 ## Summary of Answers

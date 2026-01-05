@@ -77,8 +77,56 @@ except Exception as e:
 
 # Question 5: First file from search for "demo"
 print("\n[Q5] Searching for 'demo'...")
-print("  Expected first result: examples/testing_demo/README.md")
-print("  ✓ Verified in search.py output")
+try:
+    import os
+    import zipfile
+    import minsearch
+
+    # Download and index if needed
+    zip_path = "fastmcp-main.zip"
+    if not os.path.exists(zip_path):
+        print("  Downloading FastMCP repository...")
+        url = "https://github.com/jlowin/fastmcp/archive/refs/heads/main.zip"
+        response = requests.get(url)
+        response.raise_for_status()
+        with open(zip_path, 'wb') as f:
+            f.write(response.content)
+
+    # Index documents
+    documents = []
+    with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+        for file_info in zip_ref.filelist:
+            filename = file_info.filename
+            if filename.endswith('.md') or filename.endswith('.mdx'):
+                clean_filename = filename.replace('fastmcp-main/', '', 1)
+                with zip_ref.open(file_info) as f:
+                    try:
+                        content = f.read().decode('utf-8')
+                        documents.append({
+                            'filename': clean_filename,
+                            'content': content
+                        })
+                    except:
+                        pass
+
+    index = minsearch.Index(text_fields=['content', 'filename'], keyword_fields=[])
+    index.fit(documents)
+
+    # Search for "demo"
+    results = index.search(query="demo", filter_dict={}, boost_dict={}, num_results=5)
+
+    if results:
+        first_result = results[0]['filename']
+        print(f"  First result: {first_result}")
+        print(f"  Expected: examples/testing_demo/README.md")
+        if first_result == "examples/testing_demo/README.md":
+            print("  ✓ CORRECT!")
+        else:
+            print("  ✗ MISMATCH!")
+    else:
+        print("  ✗ No results found!")
+except Exception as e:
+    print(f"  ✗ Error: {e}")
 
 print("\n" + "=" * 80)
 print("VERIFICATION COMPLETE")

@@ -76,38 +76,31 @@ Example: "Add 5 and 7 using the add tool"
 
 ## Testing & Verification
 
-### Verify All Answers
+Run the comprehensive verification script to test all homework answers in one command:
+
 ```bash
-# Run comprehensive verification of all homework answers
 python -m uv run python verify_all.py
 ```
 
-### Test Individual Components
-
-#### Web Scraping (Question 3)
-```bash
-python -m uv run python test.py
-```
-
-#### Search Functionality (Question 5)
-```bash
-python -m uv run python search.py
-```
+This will verify all 5 questions:
+- ✓ Q1: Extract and verify fastmcp hash from uv.lock
+- ✓ Q2: Confirm STDIO transport type
+- ✓ Q3: Test web scraping and character count
+- ✓ Q4: Count 'data' occurrences on datatalks.club
+- ✓ Q5: Search for 'demo' and verify first result
 
 ## Project Structure
 
 ```
 mcp-homework/
 ├── main.py              # MCP server with all tools (scrape_web, search_docs, add)
-├── search.py            # Standalone search implementation and testing
-├── test.py              # Web scraping tool test (Question 3)
-├── verify_all.py        # Complete answer verification script
+├── verify_all.py        # One-command verification of all homework answers
 ├── ANSWERS.md           # Complete homework solutions with explanations
 ├── README.md            # This file - project documentation
 ├── pyproject.toml       # uv project configuration
-├── uv.lock              # Dependency lock file
+├── uv.lock              # Dependency lock file (contains Q1 answer)
 ├── .gitignore           # Git ignore patterns
-└── fastmcp-main.zip     # FastMCP docs (auto-downloaded on first search)
+└── fastmcp-main.zip     # FastMCP docs (auto-downloaded, gitignored)
 ```
 
 ## Dependencies
