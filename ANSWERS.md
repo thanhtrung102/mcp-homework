@@ -97,13 +97,17 @@ The assistant would:
 1. Use the `scrape_web` tool to fetch the page content
 2. Count occurrences of the word "data" (case-insensitive)
 
-**Expected Answer Range:** One of:
-- 61
-- 111
-- **161** (most likely)
-- 261
+**Answer:** **61**
 
-*Note: This requires integration with an MCP client like Claude Desktop to verify the exact count.*
+Tested using the scrape_web tool:
+- Page content length: 5,679 characters
+- Occurrences of "data" (case-insensitive): **61**
+
+Options were:
+- ✅ **61** (Correct)
+- 111
+- 161
+- 261
 
 ## Question 5: Implement Search
 
@@ -199,7 +203,7 @@ python -m uv run python search.py
 | Q1: First hash in fastmcp wheels | `sha256:e33cd622e1ebd5110af6a981804525b6cd41072e3c7d68268ed69ef3be651aca` |
 | Q2: Transport type | **STDIO** |
 | Q3: Character count for minsearch repo | **29184** (actual: 31,361) |
-| Q4: "data" count on datatalks.club | **161** (requires MCP client) |
+| Q4: "data" count on datatalks.club | **61** |
 | Q5: First file for "demo" query | **examples/testing_demo/README.md** |
 
 ---
